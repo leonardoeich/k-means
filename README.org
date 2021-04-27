@@ -1,0 +1,15 @@
+# -*- mode: org -*-
+# -*- coding: utf-8 -*-
+#+TITLE: A k-means python Implementation - Machine Learning Course
+#+AUTHOR: Valéria S. Girelli
+#+LATEX_HEADER: \usepackage[margin=2cm,a4paper]{geometry}
+#+STARTUP: overview indent
+#+TAGS: noexport(n) deprecated(d)
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+SEQ_TODO: TODO(t!) STARTED(s!) WAITING(w!) | DONE(d!) CANCELLED(c!) DEFERRED(f!)
+
+* Random Forests
+
+This repository holds a k-means implementation in python, as part of the Machine Learning
+course on the Informatics Institute at UFRGS. 
