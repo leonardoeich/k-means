@@ -1,5 +1,6 @@
 import math
 import random
+import statistics 
 
 def manhattan_distance(p1, p2):
     total = 0
@@ -26,4 +27,13 @@ def random_centroid(data):
     for axis in range(len(data.columns)):
         min_point, max_point = get_max_min(data.iloc[:,axis])
         point.append(random.uniform(min_point, max_point))
+    return point
+
+def take_means(data):
+    point = []
+    # taking the mean of each axis to compute new centroid
+    for axis in range(len(data[0])):
+        #print(range(len(data[0])))
+        #print(data[30])
+        point.append(data[axis].mean())
     return point
