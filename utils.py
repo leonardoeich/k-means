@@ -10,7 +10,7 @@ def manhattan_distance(p1, p2):
 def euclidean_distance(p1, p2):
     total = 0
     for i in range(len(p1)):
-        total += pow(p1[i] - p2[i])
+        total += pow((p1[i] - p2[i]), 2)
     return math.sqrt(total)
 
 def get_max_min(axis):
