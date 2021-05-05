@@ -11,5 +11,21 @@
 
 * Random Forests
 
-This repository holds a k-means implementation in python, as part of the Machine Learning
-course on the Informatics Institute at UFRGS. 
+This repository holds a k-means implementation in python, as part of
+the Machine Learning course on the Informatics Institute at UFRGS. As
+distance calculation methods we provide the Euclidean distance and the
+Manhattan distance. The Total Within Sum of Squares (WSS) validation
+method is presented in order to analyse the possible optimal k value.
+
+To run the application you can simply use:
+#+BEGIN_SRC 
+python3 main.py
+#+END_SRC
+
+* Required libraries
+You might need to install some libraries on your system:
+#+BEGIN_SRC 
+pip3 install pandas
+pip3 install numpy
+pip3 install matplotlib
+#+END_SRC

@@ -5,14 +5,14 @@ import matplotlib.pyplot as plt
 
 
 def main():
-  
+
   data = pd.read_csv(r'./data/MusicAndMovies_Vars.txt', sep = '\t')
-  
+
   with open('columns') as f:
     content = f.read()
     content = content.rstrip("\n")
     attributes_list = content.split(" ")
-  
+
   n_iterations = 4
   intra = []
   ks = []
@@ -36,28 +36,28 @@ def main():
       #  best_clusters = clusters.copy()
     intra.append(min(distances))
 
-  
+
   #print(intra_distance)
-  
+
   # x axis values
   x = [1,2,3,4,5,6]
   # corresponding y axis values
   y = [2,4,1,5,2,6]
-  # plotting the points 
+  # plotting the points
   plt.plot(ks, intra, color='green', linestyle='solid', linewidth = 3, marker='o', markerfacecolor='blue', markersize=12)
-    
+
   # setting x and y axis range
   plt.ylim(0,max(intra))
   plt.xlim(1,11)
-    
+
   # naming the x axis
   plt.xlabel('number of clusters')
   # naming the y axis
   plt.ylabel('average within cluster squared error')
-    
+
   # giving a title to my graph
   plt.title('Some cool customizations!')
-    
+
   # function to show the plot
   plt.show()
 
