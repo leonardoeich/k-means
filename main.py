@@ -1,6 +1,8 @@
 import pandas as pd
 from utils import *
 from kmeans import k_means
+import matplotlib.pyplot as plt
+
 
 def main():
   
@@ -11,16 +13,53 @@ def main():
     content = content.rstrip("\n")
     attributes_list = content.split(" ")
   
-  k = len(data)
+  n_iterations = 4
+  intra = []
+  ks = []
+
+  #k = 3
   data_subset = data[attributes_list]
-  centroids, clusters = k_means(data_subset, k, attributes_list)
-  intra_distance = calculate_distance_intra_cluster(data_subset, clusters, centroids)
+  #best_centroids, best_clusters = k_means(data_subset, 2, attributes_list)
+  #min_intra_distance = calculate_distance_intra_cluster(data_subset, best_centroids, best_clusters)
+  #intra.append(min_intra_distance)
 
-  print(intra_distance)
+  for k in range(2, 11):
+    ks.append(k)
+    distances = []
+    for i in range(n_iterations):
+      centroids, clusters = k_means(data_subset, k, attributes_list)
+      intra_distance = calculate_distance_intra_cluster(data_subset, clusters, centroids)
+      distances.append(intra_distance)
+      #if intra_distance < min_intra_distance:
+      #  min_intra_distance = intra_distance
+      #  best_centroids = centroids.copy()
+      #  best_clusters = clusters.copy()
+    intra.append(min(distances))
 
-  #print(data.iloc[0][0])
-  #print(centroids)
-  #print(len(clusters[0]) + len(clusters[1]) + len(clusters[2]) + len(clusters[3]))
-  #print(len(data))
+  
+  #print(intra_distance)
+  
+  # x axis values
+  x = [1,2,3,4,5,6]
+  # corresponding y axis values
+  y = [2,4,1,5,2,6]
+  # plotting the points 
+  plt.plot(ks, intra, color='green', linestyle='solid', linewidth = 3, marker='o', markerfacecolor='blue', markersize=12)
+    
+  # setting x and y axis range
+  plt.ylim(0,max(intra))
+  plt.xlim(1,11)
+    
+  # naming the x axis
+  plt.xlabel('number of clusters')
+  # naming the y axis
+  plt.ylabel('average within cluster squared error')
+    
+  # giving a title to my graph
+  plt.title('Some cool customizations!')
+    
+  # function to show the plot
+  plt.show()
+
 
 main()
