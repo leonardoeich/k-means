@@ -13,12 +13,13 @@ def main():
     content = content.rstrip("\n")
     attributes_list = content.split(" ")
   
-  n_iterations = 4
+  n_iterations = 10
+  data_subset = data[attributes_list]
+  '''
   intra = []
   ks = []
 
   #k = 3
-  data_subset = data[attributes_list]
   #best_centroids, best_clusters = k_means(data_subset, 2, attributes_list)
   #min_intra_distance = calculate_distance_intra_cluster(data_subset, best_centroids, best_clusters)
   #intra.append(min_intra_distance)
@@ -35,10 +36,20 @@ def main():
       #  best_centroids = centroids.copy()
       #  best_clusters = clusters.copy()
     intra.append(min(distances))
+  '''
+  distances = []
+  for i in range(n_iterations):
+    centroids, clusters = k_means(data_subset, 3, attributes_list)
+    intra_distance = calculate_distance_intra_cluster(data_subset, clusters, centroids)
+    distances.append(intra_distance)
+    #if intra_distance < min_intra_distance:
+    #  min_intra_distance = intra_distance
+    #  best_centroids = centroids.copy()
+    #  best_clusters = clusters.copy()
 
-  
-  #print(intra_distance)
-  
+
+  print(min(distances))
+  '''
   # x axis values
   x = [1,2,3,4,5,6]
   # corresponding y axis values
@@ -47,7 +58,7 @@ def main():
   plt.plot(ks, intra, color='green', linestyle='solid', linewidth = 3, marker='o', markerfacecolor='blue', markersize=12)
     
   # setting x and y axis range
-  plt.ylim(0,max(intra))
+  plt.ylim(0,max(intra) + 200)
   plt.xlim(1,11)
     
   # naming the x axis
@@ -60,6 +71,7 @@ def main():
     
   # function to show the plot
   plt.show()
+  '''
 
 
 main()
