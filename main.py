@@ -6,14 +6,14 @@ import matplotlib.pyplot as plt
 
 def main():
 
-  data = pd.read_csv(r'./data/MusicAndMovies_Vars.txt', sep = '\t')
+  data = pd.read_csv(r'./data/Personality_Vars.txt', sep = '\t')
 
   with open('columns') as f:
     content = f.read()
     content = content.rstrip("\n")
     attributes_list = content.split(" ")
 
-  n_iterations = 4
+  n_iterations = 50
   intra = []
   ks = []
 
