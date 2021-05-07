@@ -7,8 +7,9 @@ import matplotlib.pyplot as plt
 def main():
   data1 = pd.read_csv(r'./data/Personality_Vars.txt', sep = '\t')
   data2 = pd.read_csv(r'./data/SocioDemographic_Vars.txt', sep = '\t')
-  data2 = data2.replace('female', 1)
-  data2 = data2.replace('male', 0)
+  #data2 = data2.replace('female', int(1))
+  #data2 = data2.replace('male', int(0))
+  data2['Gender'] = data2['Gender'].apply(normalize_categorical)
 
   with open('columns') as f:
     content = f.read()
@@ -17,7 +18,19 @@ def main():
 
   data_subset = data1[attributes_list]
 
-  data = pd.concat([data_subset,data2["Gender"]], axis=1)
+  with open('columns2') as f:
+    content = f.read()
+    content = content.rstrip("\n")
+    attributes_list2 = content.split(" ")
+
+  data_subset2 = data2[attributes_list2]
+
+  attributes_list.extend(attributes_list2)
+
+  data = pd.concat([data_subset,data_subset2], axis=1)
+  #print(data.to_string())
+  #print(attributes_list)
+  #return
 
   '''
   n_iterations = 50
@@ -46,8 +59,8 @@ def main():
   n_iterations = 100
   distances = []
   for i in range(n_iterations):
-    centroids, clusters = k_means(data_subset, 11, attributes_list)
-    intra_distance = calculate_distance_intra_cluster(data_subset, clusters, centroids)
+    centroids, clusters = k_means(data, 10, attributes_list)
+    intra_distance = calculate_distance_intra_cluster(data, clusters, centroids)
     distances.append(intra_distance)
     #if intra_distance < min_intra_distance:
     #  min_intra_distance = intra_distance
