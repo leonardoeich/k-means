@@ -1,3 +1,4 @@
+import pandas as pd
 import math
 import random
 import statistics 
@@ -70,3 +71,11 @@ def lists_are_equal(l1, l2):
       if (l1[i] != l2[i]):
         equal = False
   return equal
+
+def normalize_categorical(data):
+  if data == 'female':
+    return 1
+  if data == 'male':
+    return 0
+  if pd.isnull(data):
+    return random.uniform(0,1)

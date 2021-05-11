@@ -9,6 +9,11 @@ from sklearn.decomposition import PCA
 def main():
   
   data = pd.read_csv(r'./data/Personality_Vars.txt', sep = '\t')
+  #data1 = pd.read_csv(r'./data/Personality_Vars.txt', sep = '\t')
+  #data2 = pd.read_csv(r'./data/SocioDemographic_Vars.txt', sep = '\t')
+  #data2 = data2.replace('female', int(1))
+  #data2 = data2.replace('male', int(0))
+  #data2['Gender'] = data2['Gender'].apply(normalize_categorical)
 
   with open('columns') as f:
     content = f.read()
@@ -20,26 +25,35 @@ def main():
   
   
 
-  #n_iterations = 4
-  intra = []
-  #ks = []
+  '''
+  with open('columns2') as f:
+    content = f.read()
+    content = content.rstrip("\n")
+    attributes_list2 = content.split(" ")
 
+  data_subset2 = data2[attributes_list2]
+
+  attributes_list.extend(attributes_list2)
+
+  data = pd.concat([data_subset,data_subset2], axis=1)
+  #print(data.to_string())
+  #print(attributes_list)
+  #return
+  '''
+  
+  n_iterations = 100
+  intra = []
+  
   k = 3
   best_centroids, best_clusters = k_means(data_subset, k, attributes_list)
   min_intra_distance = calculate_distance_intra_cluster(data_subset, best_clusters, best_centroids)
-  #intra.append(min_intra_distance)
   
   #add cluster column
   data_subset['Cluster'] = ""
   for i, cluster in enumerate(best_clusters):
     for row in cluster:
       data_subset.loc[row+1, 'Cluster'] = i
-      #data_subset.at[row,"Cluster"] = i
 
-  #data_subset.loc[2,'Cluster'] = 1
-  #print(data_subset)
-  #print(data_subset.iloc[1])
-  #df = px.data.iris()
   X = data_subset[attributes_list]
 
   pca = PCA(n_components=2)
@@ -72,15 +86,18 @@ def main():
       min_intra_distance = intra_distance
       best_centroids = centroids.copy()
       best_clusters = clusters.copy()
-'''
+
   
   
   
-  '''
+
+  n_iterations = 100
   distances = []
   for i in range(n_iterations):
     centroids, clusters = k_means(data_subset, 12, attributes_list)
     intra_distance = calculate_distance_intra_cluster(data_subset, clusters, centroids)
+    centroids, clusters = k_means(data, 10, attributes_list)
+    intra_distance = calculate_distance_intra_cluster(data, clusters, centroids)
     distances.append(intra_distance)
     #if intra_distance < min_intra_distance:
     #  min_intra_distance = intra_distance
