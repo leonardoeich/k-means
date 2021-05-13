@@ -2,6 +2,7 @@ import pandas as pd
 import math
 import random
 import statistics 
+#from kmeans import k_means
 
 def manhattan_distance(p1, p2):
   total = 0
@@ -71,6 +72,15 @@ def lists_are_equal(l1, l2):
       if (l1[i] != l2[i]):
         equal = False
   return equal
+
+
+
+def read_attribute_list(file_path):
+  with open(file_path) as f:
+    content = f.read()
+    content = content.rstrip("\n")
+    attributes_list = content.split(" ")
+  return attributes_list
 
 def normalize_categorical(data):
   if data == 'female':

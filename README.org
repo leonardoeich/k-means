@@ -30,3 +30,7 @@ pip3 install numpy
 pip3 install matplotlib
 sudo apt-get install python3-tk
 #+END_SRC
+
+* How To Use
+Read sections "Código e Organização" and "Metodologia". The main funcion might need to change accordingly with your purpose.
+You have to insert manually the file names and change the "columns" files.  

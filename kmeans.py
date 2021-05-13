@@ -29,3 +29,25 @@ def k_means(data, k, attributes_list):
       clusters = new_clusters.copy()
       centroids = calculate_centroids(data, clusters, attributes_list)
   return [centroids, clusters]
+
+#find the best centroids for a given k
+def generate_best_clusters(data, k, n_iterations, attributes_list):
+  best_centroids, best_clusters = k_means(data, k, attributes_list)
+  min_intra_distance = calculate_distance_intra_cluster(data, best_clusters, best_centroids)
+  for i in range(n_iterations):
+    centroids, clusters = k_means(data, k, attributes_list)
+    intra_distance = calculate_distance_intra_cluster(data, clusters, centroids)
+    if intra_distance < min_intra_distance:
+      min_intra_distance = intra_distance
+      best_centroids = centroids.copy()
+      best_clusters = clusters.copy()
+  return [best_centroids, best_clusters]
+
+#find best value for a given k
+def find_min_k(n_iterations, k, data, attributes_list):
+  for i in range(n_iterations):
+    distances = []
+    centroids, clusters = k_means(data, k, attributes_list)
+    intra_distance = calculate_distance_intra_cluster(data, clusters, centroids)
+    distances.append(intra_distance)
+  return min(distances)
